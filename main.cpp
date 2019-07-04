@@ -2,7 +2,7 @@
 #include <thread>
 
 // Broj elemenata za sortirat 
-#define MAX 200000
+#define MAX 2000000
 
 using namespace std;
 
@@ -14,7 +14,9 @@ int Merge(int A[],int p, int q,int r)
        
     n1=q-p+1;
     n2=r-q;             
-    int L[n1],R[n2];
+    int *L,*R;
+    L = new int [n1];
+    R = new int [n2];
     //inicijalizacija lijeve strane niza L[]
     for(i=0;i<n1;i++)
     {
@@ -80,13 +82,14 @@ int callThread(int A[]){
 }
 
 int main()
-{	
+{	int *A, i;
+	A = new int[MAX];
 	clock_t t1, t2;
     int n = MAX;
-    
-    int A[n],i;
+
+	
     for (int i = 0; i < n; i++) 
-		A[i] = rand() % 100;
+		A[i] = rand();
 
 	t1 = clock();
     callThread(A);
@@ -95,7 +98,7 @@ int main()
     t2 = clock();
     for(i=0;i<n;i++)
     {
-        cout<<A[i]<<" ";
+        //cout<<A[i]<<" ";
     }
     cout << "Time taken: " << (t2 - t1) / 
 			(double)CLOCKS_PER_SEC << endl;
